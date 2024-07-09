@@ -1,0 +1,17 @@
+nodes:
+  - id: rust-node-dynamic
+    custom:
+      build: cargo build -p benchmark-example-node-dynamic --release
+      source: dynamic
+      inputs:
+        tick: dora/timer/millis/20
+      outputs:
+        - latency
+        - throughput
+  - id: rust-sink-dynamic
+    custom:
+      build: cargo build -p benchmark-example-sink-dynamic --release
+      source: dynamic
+      inputs:
+        latency: rust-node-dynamic/latency
+        throughput: rust-node-dynamic/throughput
