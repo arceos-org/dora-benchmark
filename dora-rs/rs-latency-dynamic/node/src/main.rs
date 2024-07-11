@@ -9,8 +9,11 @@ fn main() -> eyre::Result<()> {
     let _throughput = DataId::from("throughput".to_owned());
 
     let (mut node, mut events) =
-        DoraNode::init_from_node_id(NodeId::from("rust-node-dynamic".to_string()))?;
-    let sizes = [1, 10 * 512, 100 * 512, 1000 * 512, 10000 * 512];
+        DoraNode::init_from_node_id(NodeId::from("rust-node-dynamic".to_string()), None)?;
+
+    println!("[TRACE] Node {} init success, running...", node.id());
+
+    let sizes = [1, 10 * 512, 100 * 512];
 
     // test latency first
     for size in sizes {

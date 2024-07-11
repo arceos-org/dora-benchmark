@@ -1,8 +1,8 @@
 use csv::Writer;
 use dora_node_api::arrow::array::{AsArray, PrimitiveArray};
 use dora_node_api::arrow::datatypes::UInt64Type;
-use dora_node_api::{self, DoraNode, Event};
 use dora_node_api::dora_core::config::NodeId;
+use dora_node_api::{self, DoraNode, Event};
 use eyre::ContextCompat;
 use std::collections::HashMap;
 use std::time::{Duration, Instant};
@@ -15,7 +15,9 @@ static NAME: &str = "dora-rs daemon Rust";
 
 fn main() -> eyre::Result<()> {
     let (_node, mut events) =
-        DoraNode::init_from_node_id(NodeId::from("rust-sink-dynamic".to_string()))?;
+        DoraNode::init_from_node_id(NodeId::from("rust-sink-dynamic".to_string()), None)?;
+
+    println!("[TRACE] Node {} init success, running...", _node.id());
 
     // latency is tested first
     let latency = true;
